@@ -29,13 +29,11 @@ def columns_gengerator(df, headers):                     #カラムの作成
     with open("colmuns.txt", mode="w") as f:
         f.write("csv << [\n")
         for colmun, header, number, number2 in zip(columns, headers, numbers, numbers2):
-            if number == None and number2 == None:
-                f.write("nil,       ")
-            elif number == 0 and number2 == 0:
-                f.write('"0",       ')
+            if number == 0 and number2 == 0:
+                f.write('"0",                                ')
             else:
-                f.write(",        ")
-            f.write("#列" + colmun + " " + header + "\n")
+                f.write(",                                   ")
+            f.write("#  " + colmun + "列  " + header + "\n")
         f.write("]\n")
 
     return  colmuns
