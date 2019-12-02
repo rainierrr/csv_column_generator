@@ -24,13 +24,14 @@ def columns_gengerator(df, headers):                     #カラムの作成
 
     colmuns = columns[0:len(df.columns)]        #CSVのヘッダーの数だけのカラムを取り出している
     numbers = list(df.loc[2])                   #サンプル用の値
+    numbers2 = list(df.loc[3])                   #サンプル用の値
 
     with open("colmuns.txt", mode="w") as f:
         f.write("csv << [\n")
-        for colmun, header, number in zip(columns, headers, numbers):
-            if number == None:
+        for colmun, header, number, number2 in zip(columns, headers, numbers, numbers2):
+            if number == None and number2 == None:
                 f.write("nil,       ")
-            elif number == 0:
+            elif number == 0 and number2 == 0:
                 f.write('"0",       ')
             else:
                 f.write(",        ")
