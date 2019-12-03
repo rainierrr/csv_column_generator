@@ -25,14 +25,15 @@ def columns_gengerator(df, headers):                     #カラムの作成
     colmuns = columns[0:len(df.columns)]        #CSVのヘッダーの数だけのカラムを取り出している
     numbers = list(df.loc[2])                   #サンプル用の値
     numbers2 = list(df.loc[3])                   #サンプル用の値
-
     with open("colmuns.txt", mode="w") as f:
         f.write("csv << [\n")
         for colmun, header, number, number2 in zip(columns, headers, numbers, numbers2):
             if number == 0 and number2 == 0:
-                f.write('"0",                                ')
+                f.write('"0",                               ')
+            elif pd.isnull(number) is True and pd.isnull(number2) is True: #dfのNanはtypeではnumpy.float64となる
+                f.write("nil,                               ")
             else:
-                f.write(",                                   ")
+                f.write(",                                  ")
             f.write("#  " + colmun + "列  " + header + "\n")
         f.write("]\n")
 
@@ -42,6 +43,8 @@ def columns_gengerator(df, headers):                     #カラムの作成
 
 args = sys.argv #コマンドライン引数　ファイル名を入れる
 df = pd.read_csv(args[1], encoding="utf-8")
+
+#df = pd.read_csv("bear_tail.csv", encoding="utf-8")
 
 headers = headers_gengerator(df)
 columns_gengerator(df, headers)
